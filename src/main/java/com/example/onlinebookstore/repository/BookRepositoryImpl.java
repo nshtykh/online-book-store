@@ -2,6 +2,7 @@ package com.example.onlinebookstore.repository;
 
 import com.example.onlinebookstore.model.Book;
 import java.util.List;
+import java.util.Optional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -37,6 +38,16 @@ public class BookRepositoryImpl implements BookRepository {
                 session.close();
             }
         }
+    }
+
+    @Override
+    public Optional<Book> findById(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            return Optional.ofNullable(session.get(Book.class, id));
+        } catch (Exception e) {
+            throw new RuntimeException("Can't find book with id: " + id, e);
+        }
+
     }
 
     @Override
