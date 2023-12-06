@@ -47,7 +47,6 @@ public class BookRepositoryImpl implements BookRepository {
         } catch (Exception e) {
             throw new RuntimeException("Can't find book with id: " + id, e);
         }
-
     }
 
     @Override
