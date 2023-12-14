@@ -8,12 +8,13 @@ import lombok.Data;
 
 @Data
 public class CreateBookRequestDto {
+    private static final String EXCEPTION_MSG = "must start with 978 or 979 and contain 13 digits!";
     @NotNull
     private String title;
     @NotNull
     private String author;
     @NotNull
-    @Pattern(regexp = "978\\d{10}|979\\d{10}")
+    @Pattern(regexp = "978\\d{10}|979\\d{10}", message = EXCEPTION_MSG)
     private String isbn;
     @NotNull
     @Min(0)
