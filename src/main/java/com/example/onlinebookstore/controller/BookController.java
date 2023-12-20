@@ -2,7 +2,7 @@ package com.example.onlinebookstore.controller;
 
 import com.example.onlinebookstore.dto.book.BookDto;
 import com.example.onlinebookstore.dto.book.CreateBookRequestDto;
-import com.example.onlinebookstore.service.BookService;
+import com.example.onlinebookstore.service.book.BookService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

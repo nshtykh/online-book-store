@@ -1,4 +1,4 @@
-package com.example.onlinebookstore.service;
+package com.example.onlinebookstore.service.book;
 
 import com.example.onlinebookstore.dto.book.BookDto;
 import com.example.onlinebookstore.dto.book.CreateBookRequestDto;
@@ -7,6 +7,8 @@ import com.example.onlinebookstore.mapper.BookMapper;
 import com.example.onlinebookstore.model.Book;
 import com.example.onlinebookstore.repository.BookRepository;
 import java.util.List;
+
+import com.example.onlinebookstore.service.book.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
