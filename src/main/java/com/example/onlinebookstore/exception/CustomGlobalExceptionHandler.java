@@ -47,16 +47,18 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
     }
 
     @ExceptionHandler(RegistrationException.class)
-    protected ResponseEntity<Object> handleRegistrationException(Exception exception) {
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", LocalDateTime.now());
-        body.put("status", HttpStatus.BAD_REQUEST);
-        body.put("errors", exception.getMessage());
-        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    protected ResponseEntity<Object> handleRegistrationException(
+            RegistrationException exception) {
+        return handleException(exception);
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
-    protected ResponseEntity<Object> handleEntityNotFoundException(Exception exception) {
+    protected ResponseEntity<Object> handleEntityNotFoundException(
+            EntityNotFoundException exception) {
+        return handleException(exception);
+    }
+
+    private static ResponseEntity<Object> handleException(Exception exception) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("status", HttpStatus.BAD_REQUEST);

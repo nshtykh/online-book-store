@@ -2,25 +2,29 @@ package com.example.onlinebookstore.dto.user;
 
 import com.example.onlinebookstore.validation.FieldMatch;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
 
 @Data
 @FieldMatch
 public class UserRegistrationRequestDto {
-    @NotNull
+    @NotBlank
     @Email
+    @Max(255)
     private String email;
-    @NotNull
-    @Length(min = 6, max = 20)
+    @NotBlank
+    @Size(min = 6, max = 20)
     private String password;
-    @NotNull
-    @Length(min = 6, max = 20)
+    @NotBlank
+    @Size(min = 6, max = 20)
     private String repeatPassword;
-    @NotNull
+    @NotBlank
+    @Max(25)
     private String firstName;
-    @NotNull
+    @NotBlank
+    @Max(25)
     private String lastName;
     private String shippingAddress;
 }
