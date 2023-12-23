@@ -14,10 +14,9 @@ import lombok.Data;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    @Column(nullable = false, unique = true)
-    RoleName name;
-
+    private Long id;
+    @Column(columnDefinition = "VARCHAR(255)", nullable = false, unique = true)
+    private RoleName name;
 
     public enum RoleName {
         USER,

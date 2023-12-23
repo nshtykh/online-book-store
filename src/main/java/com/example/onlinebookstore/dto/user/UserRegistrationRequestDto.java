@@ -2,7 +2,6 @@ package com.example.onlinebookstore.dto.user;
 
 import com.example.onlinebookstore.validation.FieldMatch;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
