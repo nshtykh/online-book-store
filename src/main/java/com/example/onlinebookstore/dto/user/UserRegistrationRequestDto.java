@@ -12,7 +12,7 @@ import lombok.Data;
 public class UserRegistrationRequestDto {
     @NotBlank
     @Email
-    @Max(255)
+    @Size(max = 255)
     private String email;
     @NotBlank
     @Size(min = 6, max = 20)
@@ -21,10 +21,10 @@ public class UserRegistrationRequestDto {
     @Size(min = 6, max = 20)
     private String repeatPassword;
     @NotBlank
-    @Max(25)
+    @Size(max = 25)
     private String firstName;
     @NotBlank
-    @Max(25)
+    @Size(max = 25)
     private String lastName;
     private String shippingAddress;
 }
