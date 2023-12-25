@@ -11,7 +11,7 @@ import lombok.Data;
 public class UserRegistrationRequestDto {
     @NotBlank
     @Email
-    @Size(max = 255)
+    @Size(max = 25)
     private String email;
     @NotBlank
     @Size(min = 6, max = 20)

@@ -1,5 +1,7 @@
 package com.example.onlinebookstore.controller;
 
+import com.example.onlinebookstore.dto.user.UserLoginRequestDto;
+import com.example.onlinebookstore.dto.user.UserLoginResponseDto;
 import com.example.onlinebookstore.dto.user.UserRegistrationRequestDto;
 import com.example.onlinebookstore.dto.user.UserResponseDto;
 import com.example.onlinebookstore.service.user.UserService;
@@ -19,5 +21,10 @@ public class AuthenticationController {
     @PostMapping("/registration")
     public UserResponseDto register(@RequestBody @Valid UserRegistrationRequestDto request) {
         return userService.register(request);
+    }
+
+    @PostMapping("/login")
+    public UserLoginResponseDto login(@RequestBody UserLoginRequestDto request) {
+        return null;
     }
 }
