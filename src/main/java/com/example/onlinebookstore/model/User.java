@@ -22,7 +22,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Data
 @Table(name = "users")
 @SQLDelete(sql = "UPDATE users SET is_deleted = true WHERE id=?")
-@Where(clause = "is_deleted=false")
+@Where(clause = "isDeleted=false")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
