@@ -1,7 +1,9 @@
 package com.example.onlinebookstore.controller;
 
+import com.example.onlinebookstore.dto.book.BookDtoWithoutCategoryIds;
 import com.example.onlinebookstore.dto.category.CategoryRequestDto;
 import com.example.onlinebookstore.dto.category.CategoryResponseDto;
+import com.example.onlinebookstore.service.book.BookService;
 import com.example.onlinebookstore.service.category.CategoryService;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class CategoryController {
     private final CategoryService categoryService;
+    private final BookService bookService;
 
     @GetMapping
     public List<CategoryResponseDto> getAll(Pageable pageable) {
@@ -46,5 +49,11 @@ public class CategoryController {
     @DeleteMapping("/{id}")
     public void deleteCategory(@PathVariable Long id) {
         categoryService.deleteById(id);
+    }
+
+    @GetMapping("/{id}/books")
+    public List<BookDtoWithoutCategoryIds> getBooksByCategoryId(
+            @PathVariable(name = "id") Long categoryId) {
+        return bookService.findAllByCategoryId(categoryId);
     }
 }
