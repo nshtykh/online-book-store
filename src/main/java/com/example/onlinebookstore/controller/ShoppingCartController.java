@@ -33,7 +33,7 @@ public class ShoppingCartController {
     public ShoppingCartResponseDto addToCart(
             @RequestBody @Valid AddToCartRequestDto requestDto,
             Authentication authentication) {
-        User user = (User) authentication.getPrincipal();;
+        User user = (User) authentication.getPrincipal();
 
         return shoppingCartService.addToCart(requestDto, user.getId());
     }
@@ -48,7 +48,8 @@ public class ShoppingCartController {
 
     @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
     @DeleteMapping("/cart-items/{cartItemId}")
-    @Operation(summary = "Delete book from shopping cart", description = "Delete book from shopping cart")
+    @Operation(summary = "Delete book from shopping cart",
+            description = "Delete book from shopping cart")
     public ShoppingCartResponseDto removeFromCart(Authentication authentication,
                                                   @PathVariable Long cartItemId) {
         User user = (User) authentication.getPrincipal();
@@ -57,7 +58,8 @@ public class ShoppingCartController {
 
     @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
     @PutMapping("/cart-items/{cartItemId}")
-    @Operation(summary = "Update book quantity in shopping cart", description = "Update book quantity in shopping cart")
+    @Operation(summary = "Update book quantity in shopping cart",
+            description = "Update book quantity in shopping cart")
     public ShoppingCartResponseDto updateCartItem(
             Authentication authentication,
             @PathVariable Long cartItemId,
