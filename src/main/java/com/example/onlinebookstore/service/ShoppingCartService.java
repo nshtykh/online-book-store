@@ -7,4 +7,6 @@ public interface ShoppingCartService {
     ShoppingCartResponseDto addToCart(AddToCartRequestDto requestDto, Long userId);
 
     ShoppingCartResponseDto getCartByUserId(Long userId);
+
+    ShoppingCartResponseDto deleteByCartItemId(Long cartItemId, Long userId);
 }

@@ -61,4 +61,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                         "Can't find cart by user id " + userId));
         return shoppingCartMapper.toDto(shoppingCart);
     }
+
+    @Override
+    public ShoppingCartResponseDto deleteByCartItemId(Long cartItemId, Long userId) {
+        cartItemRepository.deleteById(cartItemId);
+        ShoppingCart shoppingCart = shoppingCartRepository
+                .findByUserId(userId).orElseThrow(() -> new EntityNotFoundException(
+                        "Can't find cart by user id " + userId));
+        return shoppingCartMapper.toDto(shoppingCart);
+    }
 }

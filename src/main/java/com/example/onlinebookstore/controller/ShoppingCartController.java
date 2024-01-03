@@ -7,7 +7,9 @@ import com.example.onlinebookstore.service.ShoppingCartService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +34,13 @@ public class ShoppingCartController {
     public ShoppingCartResponseDto getShoppingCart(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         return shoppingCartService.getCartByUserId(user.getId());
+    }
+
+    @DeleteMapping("/cart-items/{cartItemId}")
+    public ShoppingCartResponseDto removeFromCart(Authentication authentication,
+                                                  @PathVariable Long cartItemId) {
+        User user = (User) authentication.getPrincipal();
+        return shoppingCartService.deleteByCartItemId(cartItemId, user.getId());
     }
 
 }
