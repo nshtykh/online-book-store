@@ -1,6 +1,7 @@
 package com.example.onlinebookstore.service;
 
 import com.example.onlinebookstore.dto.cart.AddToCartRequestDto;
+import com.example.onlinebookstore.dto.cart.PutCartItemRequestDto;
 import com.example.onlinebookstore.dto.cart.ShoppingCartResponseDto;
 import com.example.onlinebookstore.exception.EntityNotFoundException;
 import com.example.onlinebookstore.mapper.ShoppingCartMapper;
@@ -65,6 +66,22 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public ShoppingCartResponseDto deleteByCartItemId(Long cartItemId, Long userId) {
         cartItemRepository.deleteById(cartItemId);
+        ShoppingCart shoppingCart = shoppingCartRepository
+                .findByUserId(userId).orElseThrow(() -> new EntityNotFoundException(
+                        "Can't find cart by user id " + userId));
+        return shoppingCartMapper.toDto(shoppingCart);
+    }
+
+    @Override
+    @Transactional
+    public ShoppingCartResponseDto updateByCartItemId(
+            Long cartItemId,
+            PutCartItemRequestDto requestDto,
+            Long userId) {
+        CartItem cartItem = cartItemRepository.findById(cartItemId)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Can't find cart item with id " + cartItemId));
+        cartItem.setQuantity(requestDto.getQuantity());
         ShoppingCart shoppingCart = shoppingCartRepository
                 .findByUserId(userId).orElseThrow(() -> new EntityNotFoundException(
                         "Can't find cart by user id " + userId));
