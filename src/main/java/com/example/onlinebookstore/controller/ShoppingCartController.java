@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ShoppingCartController {
     private final ShoppingCartService shoppingCartService;
 
+    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping
     @Operation(summary = "Add book to shopping cart", description = "Add book to shopping cart")
     public ShoppingCartResponseDto addToCart(
@@ -36,6 +38,7 @@ public class ShoppingCartController {
         return shoppingCartService.addToCart(requestDto, user.getId());
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping
     @Operation(summary = "Get shopping cart", description = "Get shopping cart with books")
     public ShoppingCartResponseDto getShoppingCart(Authentication authentication) {
@@ -43,6 +46,7 @@ public class ShoppingCartController {
         return shoppingCartService.getCartByUserId(user.getId());
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
     @DeleteMapping("/cart-items/{cartItemId}")
     @Operation(summary = "Delete book from shopping cart", description = "Delete book from shopping cart")
     public ShoppingCartResponseDto removeFromCart(Authentication authentication,
@@ -51,6 +55,7 @@ public class ShoppingCartController {
         return shoppingCartService.deleteByCartItemId(cartItemId, user.getId());
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
     @PutMapping("/cart-items/{cartItemId}")
     @Operation(summary = "Update book quantity in shopping cart", description = "Update book quantity in shopping cart")
     public ShoppingCartResponseDto updateCartItem(
