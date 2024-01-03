@@ -1,6 +1,5 @@
 package com.example.onlinebookstore.repository;
 
-import com.example.onlinebookstore.dto.book.BookResponseDto;
 import com.example.onlinebookstore.model.Book;
 import java.util.List;
 import java.util.Optional;
@@ -18,5 +17,5 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     Optional<Book> findById(Long id);
 
     @Query("select b from Book b join fetch b.categories")
-    List<BookResponseDto> getAll(Pageable pageable);
+    List<Book> getAll(Pageable pageable);
 }
