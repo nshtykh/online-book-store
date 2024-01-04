@@ -77,7 +77,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    @Transactional
     public ShoppingCartResponseDto updateByCartItemId(
             Long cartItemId,
             PutCartItemRequestDto requestDto,
@@ -86,6 +85,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 .orElseThrow(() -> new EntityNotFoundException(
                         EXP_MSG_CAN_NOT_FIND_ITEM + cartItemId));
         cartItem.setQuantity(requestDto.getQuantity());
+        cartItemRepository.save(cartItem);
         ShoppingCart shoppingCart = shoppingCartRepository
                 .findByUserId(userId).orElseThrow(() -> new EntityNotFoundException(
                         EXP_MSG_CAN_NOT_FIND_CART + userId));
