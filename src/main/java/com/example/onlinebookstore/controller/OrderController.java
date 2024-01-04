@@ -1,5 +1,6 @@
 package com.example.onlinebookstore.controller;
 
+import com.example.onlinebookstore.dto.order.OrderItemResponseDto;
 import com.example.onlinebookstore.dto.order.OrderResponseDto;
 import com.example.onlinebookstore.model.User;
 import com.example.onlinebookstore.service.order.OrderService;
@@ -7,6 +8,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,5 +22,10 @@ public class OrderController {
     public List<OrderResponseDto> getOrderHistory(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         return orderService.getAllOrders(user.getId());
+    }
+
+    @GetMapping("{orderId}/items")
+    public List<OrderItemResponseDto> getOrderById(@PathVariable Long orderId) {
+        return orderService.getOrderItemsByOrderId(orderId);
     }
 }

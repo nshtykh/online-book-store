@@ -9,7 +9,7 @@ import lombok.Data;
 public class OrderResponseDto {
     private Long id;
     private Long userId;
-    private Set<OrderItemsResponseDto> orderItems;
+    private Set<OrderItemResponseDto> orderItems;
     private LocalDateTime orderDate;
     private BigDecimal total;
     private String status;
