@@ -3,6 +3,7 @@ package com.example.onlinebookstore.controller;
 import com.example.onlinebookstore.dto.order.OrderItemResponseDto;
 import com.example.onlinebookstore.dto.order.OrderResponseDto;
 import com.example.onlinebookstore.dto.order.PatchOrderRequestDto;
+import com.example.onlinebookstore.dto.order.PostOrderRequestDto;
 import com.example.onlinebookstore.model.User;
 import com.example.onlinebookstore.service.order.OrderService;
 import jakarta.validation.Valid;
@@ -12,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,5 +47,13 @@ public class OrderController {
             @PathVariable Long id,
             @Valid @RequestBody PatchOrderRequestDto requestDto) {
         return orderService.updateStatus(id, requestDto);
+    }
+
+    @PostMapping
+    public OrderResponseDto placeOrder(
+            Authentication authentication,
+            @Valid @RequestBody PostOrderRequestDto requestDto) {
+        User user = (User) authentication.getPrincipal();
+        return orderService.placeOrder(user.getId(), requestDto);
     }
 }

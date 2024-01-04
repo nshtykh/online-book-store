@@ -11,6 +11,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -48,7 +49,7 @@ public class Order {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "order")
-    private Set<OrderItem> orderItems;
+    private Set<OrderItem> orderItems = new HashSet<>();
     @Column(name = "is_deleted", nullable = false)
     private boolean isDeleted;
 
