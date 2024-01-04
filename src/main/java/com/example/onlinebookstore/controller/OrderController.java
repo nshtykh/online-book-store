@@ -9,6 +9,7 @@ import com.example.onlinebookstore.service.order.OrderService;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -24,17 +25,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController {
     private final OrderService orderService;
 
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping
     public List<OrderResponseDto> getOrderHistory(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         return orderService.getAllOrders(user.getId());
     }
 
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("{orderId}/items")
     public List<OrderItemResponseDto> getOrderItemsById(@PathVariable Long orderId) {
         return orderService.getOrderItemsByOrderId(orderId);
     }
 
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("{orderId}/items/{itemId}")
     public OrderItemResponseDto getOrderItem(
             @PathVariable Long orderId,
@@ -42,6 +46,7 @@ public class OrderController {
         return orderService.getOrderItem(orderId, itemId);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PatchMapping("/{id}")
     public OrderResponseDto updateOrderStatus(
             @PathVariable Long id,
@@ -49,6 +54,7 @@ public class OrderController {
         return orderService.updateStatus(id, requestDto);
     }
 
+    @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping
     public OrderResponseDto placeOrder(
             Authentication authentication,
