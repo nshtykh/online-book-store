@@ -8,4 +8,6 @@ public interface OrderService {
     List<OrderResponseDto> getAllOrders(Long userId);
 
     List<OrderItemResponseDto> getOrderItemsByOrderId(Long orderId);
+
+    OrderItemResponseDto getOrderItem(Long orderId, Long itemId);
 }

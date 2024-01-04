@@ -25,7 +25,14 @@ public class OrderController {
     }
 
     @GetMapping("{orderId}/items")
-    public List<OrderItemResponseDto> getOrderById(@PathVariable Long orderId) {
+    public List<OrderItemResponseDto> getOrderItemsById(@PathVariable Long orderId) {
         return orderService.getOrderItemsByOrderId(orderId);
+    }
+
+    @GetMapping("{orderId}/items/{itemId}")
+    public OrderItemResponseDto getOrderItem(
+            @PathVariable Long orderId,
+            @PathVariable Long itemId) {
+        return orderService.getOrderItem(orderId, itemId);
     }
 }
