@@ -12,12 +12,10 @@ import com.example.onlinebookstore.model.CartItem;
 import com.example.onlinebookstore.model.Order;
 import com.example.onlinebookstore.model.OrderItem;
 import com.example.onlinebookstore.model.ShoppingCart;
-import com.example.onlinebookstore.model.User;
 import com.example.onlinebookstore.repository.CartItemRepository;
 import com.example.onlinebookstore.repository.OrderItemRepository;
 import com.example.onlinebookstore.repository.OrderRepository;
 import com.example.onlinebookstore.repository.ShoppingCartRepository;
-import com.example.onlinebookstore.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -29,11 +27,12 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
+    private static final String EXP_MSG_CAN_NOT_FIND_ORDER = "Can't find order with id ";
+    private static final String EXP_MSG_CAN_NOT_FIND_CART = "Can't find shopping cart with id ";
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
     private final OrderItemRepository orderItemRepository;
     private final OrderItemMapper orderItemMapper;
-    private final UserRepository userRepository;
     private final ShoppingCartRepository shoppingCartRepository;
     private final CartItemRepository cartItemRepository;
 
@@ -62,7 +61,7 @@ public class OrderServiceImpl implements OrderService {
     public OrderResponseDto updateStatus(Long id, PatchOrderRequestDto requestDto) {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(
-                        "Can't find order with id " + id));
+                        EXP_MSG_CAN_NOT_FIND_ORDER + id));
         order.setStatus(Order.Status.valueOf(requestDto.getStatus()));
         orderRepository.save(order);
         return orderMapper.toDto(order);
@@ -71,25 +70,20 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public OrderResponseDto placeOrder(Long userId, PostOrderRequestDto requestDto) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException(
-                        "Can't find user with id " + userId));
-
         ShoppingCart shoppingCart = shoppingCartRepository.findByUserId(userId)
                 .orElseThrow(() -> new EntityNotFoundException(
-                        "Can't find shopping cart with id " + userId));
+                        EXP_MSG_CAN_NOT_FIND_CART + userId));
 
         BigDecimal total = countTotal(shoppingCart);
 
         Order order = new Order();
-        order.setUser(user);
+        order.setUser(shoppingCart.getUser());
         order.setStatus(Order.Status.PENDING);
         order.setTotal(total);
         order.setShippingAddress(requestDto.getShippingAddress());
         orderRepository.save(order);
 
         Set<OrderItem> orderItems = createOrderItems(shoppingCart, order);
-        orderItemRepository.saveAll(orderItems);
 
         order.setOrderItems(orderItems);
         orderRepository.save(order);
@@ -119,6 +113,7 @@ public class OrderServiceImpl implements OrderService {
             orderItem.setBook(book);
             orderItem.setQuantity(cartItem.getQuantity());
             orderItem.setPrice(book.getPrice());
+            orderItemRepository.save(orderItem);
             orderItems.add(orderItem);
         }
         return orderItems;
