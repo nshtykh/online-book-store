@@ -4,7 +4,7 @@ import com.example.onlinebookstore.dto.cart.AddToCartRequestDto;
 import com.example.onlinebookstore.dto.cart.PutCartItemRequestDto;
 import com.example.onlinebookstore.dto.cart.ShoppingCartResponseDto;
 import com.example.onlinebookstore.model.User;
-import com.example.onlinebookstore.service.ShoppingCartService;
+import com.example.onlinebookstore.service.cart.ShoppingCartService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

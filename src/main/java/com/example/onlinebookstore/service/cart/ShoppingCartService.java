@@ -1,4 +1,4 @@
-package com.example.onlinebookstore.service;
+package com.example.onlinebookstore.service.cart;
 
 import com.example.onlinebookstore.dto.cart.AddToCartRequestDto;
 import com.example.onlinebookstore.dto.cart.PutCartItemRequestDto;
