@@ -1,9 +1,12 @@
 package com.example.onlinebookstore.service.category;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.example.onlinebookstore.dto.category.CategoryResponseDto;
 import com.example.onlinebookstore.mapper.CategoryMapper;
 import com.example.onlinebookstore.model.Category;
 import com.example.onlinebookstore.repository.CategoryRepository;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,10 +17,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class CategoryServiceImplTest {

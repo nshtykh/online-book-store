@@ -1,9 +1,13 @@
 package com.example.onlinebookstore.service.book;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.example.onlinebookstore.dto.book.BookResponseDto;
 import com.example.onlinebookstore.mapper.BookMapper;
 import com.example.onlinebookstore.model.Book;
 import com.example.onlinebookstore.repository.BookRepository;
+import java.math.BigDecimal;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,13 +19,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 @ExtendWith(MockitoExtension.class)
 class BookServiceImplTest {
     @InjectMocks
@@ -30,7 +27,6 @@ class BookServiceImplTest {
     private BookRepository bookRepository;
     @Mock
     private BookMapper bookMapper;
-
 
     @Test
     public void findAll_ValidPageable_ReturnsAllBooks() {
