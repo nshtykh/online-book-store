@@ -8,6 +8,7 @@ import com.example.onlinebookstore.model.Book;
 import com.example.onlinebookstore.repository.BookRepository;
 import java.math.BigDecimal;
 import java.util.List;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -29,6 +30,7 @@ class BookServiceImplTest {
     private BookMapper bookMapper;
 
     @Test
+    @DisplayName("Get all books")
     public void findAll_ValidPageable_ReturnsAllBooks() {
         Book book = new Book();
         book.setId(1L);

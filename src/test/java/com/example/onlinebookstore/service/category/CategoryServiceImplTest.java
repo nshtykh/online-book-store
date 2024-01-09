@@ -7,6 +7,7 @@ import com.example.onlinebookstore.mapper.CategoryMapper;
 import com.example.onlinebookstore.model.Category;
 import com.example.onlinebookstore.repository.CategoryRepository;
 import java.util.List;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -28,6 +29,7 @@ class CategoryServiceImplTest {
     private CategoryMapper categoryMapper;
 
     @Test
+    @DisplayName("Get all categories")
     void getAll_ValidPageable_ReturnsAllCategories() {
         Category category = new Category();
         category.setId(1L);

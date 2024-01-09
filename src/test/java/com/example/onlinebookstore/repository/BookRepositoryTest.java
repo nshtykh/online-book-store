@@ -2,6 +2,7 @@ package com.example.onlinebookstore.repository;
 
 import com.example.onlinebookstore.model.Book;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -15,6 +16,7 @@ class BookRepositoryTest {
     private BookRepository bookRepository;
 
     @Test
+    @DisplayName("Get all books with categories")
     @Sql(scripts = "classpath:database/books/"
             + "add-book-and-category-to-books-and-categories-tables.sql",
             executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)

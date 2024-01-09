@@ -1,7 +1,14 @@
 package com.example.onlinebookstore.controller;
 
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.example.onlinebookstore.dto.category.CategoryResponseDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -15,14 +22,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class CategoryControllerTest {
@@ -50,7 +49,6 @@ class CategoryControllerTest {
             + "categories/delete-all-categories.sql",
             executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     void getAll_GivenThreeCategories_ShouldReturnAll() throws Exception {
-        List<CategoryResponseDto> expected = new ArrayList<>();
         CategoryResponseDto fantasy = new CategoryResponseDto();
         fantasy.setId(1L);
         fantasy.setName("Fantasy");
@@ -60,6 +58,7 @@ class CategoryControllerTest {
         CategoryResponseDto adventure = new CategoryResponseDto();
         adventure.setId(3L);
         adventure.setName("Adventure");
+        List<CategoryResponseDto> expected = new ArrayList<>();
         expected.add(fantasy);
         expected.add(thriller);
         expected.add(adventure);
@@ -69,7 +68,9 @@ class CategoryControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        CategoryResponseDto[] actual = objectMapper.readValue(result.getResponse().getContentAsByteArray(), CategoryResponseDto[].class);
+        CategoryResponseDto[] actual = objectMapper.readValue(
+                result.getResponse().getContentAsByteArray(),
+                CategoryResponseDto[].class);
         Assertions.assertEquals(expected.size(), actual.length);
         Assertions.assertEquals(expected, Arrays.stream(actual).toList());
     }
