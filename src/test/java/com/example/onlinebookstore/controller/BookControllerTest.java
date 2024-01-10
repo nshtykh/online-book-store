@@ -45,17 +45,17 @@ class BookControllerTest {
             + "delete-harry-potter-book.sql",
             executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     void save_ValidRequestDto_Success() throws Exception {
-        CreateBookRequestDto requestDto = new CreateBookRequestDto();
-        requestDto.setTitle("Harry Potter");
-        requestDto.setAuthor("J. K. Rowling");
-        requestDto.setIsbn("9781111111111");
-        requestDto.setPrice(BigDecimal.valueOf(100));
+        CreateBookRequestDto requestDto = new CreateBookRequestDto()
+                .setTitle("Harry Potter")
+                .setAuthor("J. K. Rowling")
+                .setIsbn("9781111111111")
+                .setPrice(BigDecimal.valueOf(100));
 
-        BookResponseDto expected = new BookResponseDto();
-        expected.setTitle(requestDto.getTitle());
-        expected.setAuthor(requestDto.getAuthor());
-        expected.setIsbn(requestDto.getIsbn());
-        expected.setPrice(requestDto.getPrice());
+        BookResponseDto expected = new BookResponseDto()
+                .setTitle(requestDto.getTitle())
+                .setAuthor(requestDto.getAuthor())
+                .setIsbn(requestDto.getIsbn())
+                .setPrice(requestDto.getPrice());
 
         String jsonRequest = objectMapper.writeValueAsString(requestDto);
 

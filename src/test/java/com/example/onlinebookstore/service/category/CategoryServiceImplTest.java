@@ -21,12 +21,12 @@ import org.springframework.data.domain.Pageable;
 
 @ExtendWith(MockitoExtension.class)
 class CategoryServiceImplTest {
-    @InjectMocks
-    private CategoryServiceImpl categoryService;
     @Mock
     private CategoryRepository categoryRepository;
     @Mock
     private CategoryMapper categoryMapper;
+    @InjectMocks
+    private CategoryServiceImpl categoryService;
 
     @Test
     @DisplayName("Get all categories")
@@ -50,8 +50,6 @@ class CategoryServiceImplTest {
 
         List<CategoryResponseDto> actual = categoryService.getAll(pageable);
 
-        assertEquals(expected.size(), actual.size());
-        assertEquals(expected.get(0).getId(), actual.get(0).getId());
-        assertEquals(expected.get(0).getName(), actual.get(0).getName());
+        assertEquals(expected, actual);
     }
 }
