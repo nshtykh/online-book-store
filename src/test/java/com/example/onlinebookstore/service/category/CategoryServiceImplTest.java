@@ -1,12 +1,11 @@
 package com.example.onlinebookstore.service.category;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import com.example.onlinebookstore.dto.category.CategoryResponseDto;
 import com.example.onlinebookstore.mapper.CategoryMapper;
 import com.example.onlinebookstore.model.Category;
 import com.example.onlinebookstore.repository.CategoryRepository;
 import java.util.List;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,12 +20,12 @@ import org.springframework.data.domain.Pageable;
 
 @ExtendWith(MockitoExtension.class)
 class CategoryServiceImplTest {
-    @InjectMocks
-    private CategoryServiceImpl categoryService;
     @Mock
     private CategoryRepository categoryRepository;
     @Mock
     private CategoryMapper categoryMapper;
+    @InjectMocks
+    private CategoryServiceImpl categoryService;
 
     @Test
     @DisplayName("Get all categories")
@@ -50,8 +49,6 @@ class CategoryServiceImplTest {
 
         List<CategoryResponseDto> actual = categoryService.getAll(pageable);
 
-        assertEquals(expected.size(), actual.size());
-        assertEquals(expected.get(0).getId(), actual.get(0).getId());
-        assertEquals(expected.get(0).getName(), actual.get(0).getName());
+        Assertions.assertIterableEquals(expected, actual);
     }
 }

@@ -5,9 +5,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.example.onlinebookstore.dto.category.CategoryResponseDto;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -41,7 +40,7 @@ class CategoryControllerTest {
 
     @Test
     @DisplayName("Get all categories")
-    @WithMockUser(username = "admin", roles = {"ADMIN"})
+    @WithMockUser
     @Sql(scripts = "classpath:database/"
             + "categories/add-three-categories.sql",
             executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
@@ -49,29 +48,20 @@ class CategoryControllerTest {
             + "categories/delete-all-categories.sql",
             executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     void getAll_GivenThreeCategories_ShouldReturnAll() throws Exception {
-        CategoryResponseDto fantasy = new CategoryResponseDto();
-        fantasy.setId(1L);
-        fantasy.setName("Fantasy");
-        CategoryResponseDto thriller = new CategoryResponseDto();
-        thriller.setId(2L);
-        thriller.setName("Thriller");
-        CategoryResponseDto adventure = new CategoryResponseDto();
-        adventure.setId(3L);
-        adventure.setName("Adventure");
-        List<CategoryResponseDto> expected = new ArrayList<>();
-        expected.add(fantasy);
-        expected.add(thriller);
-        expected.add(adventure);
+        CategoryResponseDto fantasy = new CategoryResponseDto().setId(1L).setName("Fantasy");
+        CategoryResponseDto thriller = new CategoryResponseDto().setId(2L).setName("Thriller");
+        CategoryResponseDto adventure = new CategoryResponseDto().setId(3L).setName("Adventure");
+        List<CategoryResponseDto> expected = List.of(fantasy, thriller, adventure);
 
         MvcResult result = mockMvc.perform(get("/categories")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
 
-        CategoryResponseDto[] actual = objectMapper.readValue(
-                result.getResponse().getContentAsByteArray(),
-                CategoryResponseDto[].class);
-        Assertions.assertEquals(expected.size(), actual.length);
-        Assertions.assertEquals(expected, Arrays.stream(actual).toList());
+        List<CategoryResponseDto> actual = objectMapper.readValue(
+                result.getResponse().getContentAsString(),
+                new TypeReference<List<CategoryResponseDto>>() {});
+        Assertions.assertEquals(expected.size(), actual.size());
+        Assertions.assertIterableEquals(expected, actual);
     }
 }

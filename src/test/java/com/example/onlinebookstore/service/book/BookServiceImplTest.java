@@ -1,6 +1,6 @@
 package com.example.onlinebookstore.service.book;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 import com.example.onlinebookstore.dto.book.BookResponseDto;
 import com.example.onlinebookstore.mapper.BookMapper;
@@ -22,12 +22,12 @@ import org.springframework.data.domain.Pageable;
 
 @ExtendWith(MockitoExtension.class)
 class BookServiceImplTest {
-    @InjectMocks
-    private BookServiceImpl bookService;
     @Mock
     private BookRepository bookRepository;
     @Mock
     private BookMapper bookMapper;
+    @InjectMocks
+    private BookServiceImpl bookService;
 
     @Test
     @DisplayName("Get all books")
@@ -57,8 +57,6 @@ class BookServiceImplTest {
 
         List<BookResponseDto> actual = bookService.findAll(pageable);
 
-        assertEquals(expected.size(), actual.size());
-        assertEquals(expected.get(0).getId(), actual.get(0).getId());
-        assertEquals(expected.get(0).getTitle(), actual.get(0).getTitle());
+        assertIterableEquals(expected, actual);
     }
 }
