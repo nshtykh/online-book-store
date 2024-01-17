@@ -62,6 +62,6 @@ class CategoryControllerTest {
                 result.getResponse().getContentAsString(),
                 new TypeReference<List<CategoryResponseDto>>() {});
         Assertions.assertEquals(expected.size(), actual.size());
-        Assertions.assertEquals(expected, actual);
+        Assertions.assertIterableEquals(expected, actual);
     }
 }

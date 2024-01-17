@@ -1,6 +1,6 @@
 package com.example.onlinebookstore.service.book;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 import com.example.onlinebookstore.dto.book.BookResponseDto;
 import com.example.onlinebookstore.mapper.BookMapper;
@@ -57,6 +57,6 @@ class BookServiceImplTest {
 
         List<BookResponseDto> actual = bookService.findAll(pageable);
 
-        assertEquals(expected, actual);
+        assertIterableEquals(expected, actual);
     }
 }
