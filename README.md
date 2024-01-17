@@ -115,6 +115,35 @@ The online bookstore enables users to enjoy their purchases and administrators t
 |     GET     | `/orders/{orderId}/items/{itemId}` | USER |        Get order item by order and item id    |
 |    POST     |          `/orders`          | USER |        Place a new order and clear the cart        |
 |    PATCH    |          `/orders/{id} `           | ADMIN |       Update order status       |
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+### <img src="https://media2.giphy.com/media/CNjoBV8X6bA6kC1hmw/giphy.gif?cid=6c09b952o0m8p765cuilvts077hjtwc54yaqj2loypwf728l&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=s" width="40"/>Challenges and Solutions:
+- **Problem: Docker Implementation**
+
+Issue: Faced challenges in implementing Docker for the project.
+
+Solution: Identified the root cause as incorrect variable names in the .env file. After correcting the variable names and ensuring alignment with Docker configurations, successfully implemented Docker for the application.
+- **Problem: Issues with findById and getAll Methods for Books Without Categories**
+
+Issue: Encountered issues with the findById and getAll methods when dealing with books that do not have assigned categories.
+
+Solution: Implemented a solution by adding a left join fetch clause in the @Query annotation above the methods. This modification ensured that even books without categories were included in the results, resolving the issue with findById and getAll methods.
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+### <img src="https://media2.giphy.com/media/CNjoBV8X6bA6kC1hmw/giphy.gif?cid=6c09b952o0m8p765cuilvts077hjtwc54yaqj2loypwf728l&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=s" width="40"/>Possible Improvements:
+- **Recommendation Features:**
+
+Enhancement: Implement a system that suggests additional products to users based on the items currently in their shopping cart. This could encourage users to discover and add more items related to their interests.
+
+- **Cart Persistence:**
+
+Enhancement: Allow users to save their shopping cart for future visits. This means users can continue shopping seamlessly without losing their selected items, even if they close the website or come back at a later time.
+
+- **Advanced Filtering:**
+
+Enhancement: Improve the search functionality by adding advanced filters. Users can refine their search results by specifying additional criteria, such as author, publication date, genre, or user ratings.
+
+
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 ### <img src="https://media2.giphy.com/media/CNjoBV8X6bA6kC1hmw/giphy.gif?cid=6c09b952o0m8p765cuilvts077hjtwc54yaqj2loypwf728l&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=s" width="40"/>You can test and use this project:
 1. Install [Docker](https://www.docker.com/products/docker-desktop/)
