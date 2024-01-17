@@ -1,12 +1,11 @@
 package com.example.onlinebookstore.service.category;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import com.example.onlinebookstore.dto.category.CategoryResponseDto;
 import com.example.onlinebookstore.mapper.CategoryMapper;
 import com.example.onlinebookstore.model.Category;
 import com.example.onlinebookstore.repository.CategoryRepository;
 import java.util.List;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -50,6 +49,6 @@ class CategoryServiceImplTest {
 
         List<CategoryResponseDto> actual = categoryService.getAll(pageable);
 
-        assertEquals(expected, actual);
+        Assertions.assertIterableEquals(expected, actual);
     }
 }
