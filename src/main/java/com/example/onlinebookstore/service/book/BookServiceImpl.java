@@ -7,8 +7,8 @@ import com.example.onlinebookstore.dto.book.CreateBookRequestDto;
 import com.example.onlinebookstore.exception.EntityNotFoundException;
 import com.example.onlinebookstore.mapper.BookMapper;
 import com.example.onlinebookstore.model.Book;
-import com.example.onlinebookstore.repository.BookRepository;
-import com.example.onlinebookstore.repository.BookSpecificationBuilder;
+import com.example.onlinebookstore.repository.book.BookRepository;
+import com.example.onlinebookstore.repository.specification.SpecificationBuilder;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -21,7 +21,7 @@ public class BookServiceImpl implements BookService {
     private static final String EXCEPTION_MSG_CANNOT_FIND = "Can't find book with id: ";
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
-    private final BookSpecificationBuilder specificationBuilder;
+    private final SpecificationBuilder<Book> specificationBuilder;
 
     @Override
     public BookResponseDto save(CreateBookRequestDto requestDto) {

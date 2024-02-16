@@ -2,6 +2,7 @@ package com.example.onlinebookstore.repository;
 
 import com.example.onlinebookstore.model.Book;
 import com.example.onlinebookstore.model.Category;
+import com.example.onlinebookstore.repository.book.BookRepository;
 import java.math.BigDecimal;
 import java.util.Set;
 import org.junit.jupiter.api.Assertions;
