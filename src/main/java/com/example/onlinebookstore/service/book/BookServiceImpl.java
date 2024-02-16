@@ -2,14 +2,17 @@ package com.example.onlinebookstore.service.book;
 
 import com.example.onlinebookstore.dto.book.BookDtoWithoutCategoryIds;
 import com.example.onlinebookstore.dto.book.BookResponseDto;
+import com.example.onlinebookstore.dto.book.BookSearchParameters;
 import com.example.onlinebookstore.dto.book.CreateBookRequestDto;
 import com.example.onlinebookstore.exception.EntityNotFoundException;
 import com.example.onlinebookstore.mapper.BookMapper;
 import com.example.onlinebookstore.model.Book;
-import com.example.onlinebookstore.repository.BookRepository;
+import com.example.onlinebookstore.repository.book.BookRepository;
+import com.example.onlinebookstore.repository.specification.SpecificationBuilder;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -18,6 +21,7 @@ public class BookServiceImpl implements BookService {
     private static final String EXCEPTION_MSG_CANNOT_FIND = "Can't find book with id: ";
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
+    private final SpecificationBuilder<Book> specificationBuilder;
 
     @Override
     public BookResponseDto save(CreateBookRequestDto requestDto) {
@@ -63,6 +67,15 @@ public class BookServiceImpl implements BookService {
         return bookRepository.findAllByCategoryId(categoryId)
                 .stream()
                 .map(bookMapper::toBookWithoutCategoryDto)
+                .toList();
+    }
+
+    @Override
+    public List<BookResponseDto> search(BookSearchParameters parameters) {
+        Specification<Book> bookSpecification = specificationBuilder.build(parameters);
+        return bookRepository.findAll(bookSpecification)
+                .stream()
+                .map(bookMapper::toDto)
                 .toList();
     }
 }

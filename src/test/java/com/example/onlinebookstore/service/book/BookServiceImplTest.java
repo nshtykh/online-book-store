@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import com.example.onlinebookstore.dto.book.BookResponseDto;
 import com.example.onlinebookstore.mapper.BookMapper;
 import com.example.onlinebookstore.model.Book;
-import com.example.onlinebookstore.repository.BookRepository;
+import com.example.onlinebookstore.repository.book.BookRepository;
 import java.math.BigDecimal;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;

@@ -1,6 +1,7 @@
 package com.example.onlinebookstore.controller;
 
 import com.example.onlinebookstore.dto.book.BookResponseDto;
+import com.example.onlinebookstore.dto.book.BookSearchParameters;
 import com.example.onlinebookstore.dto.book.CreateBookRequestDto;
 import com.example.onlinebookstore.service.book.BookService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -65,4 +66,12 @@ public class BookController {
                                   @RequestBody @Valid CreateBookRequestDto requestDto) {
         return bookService.update(id, requestDto);
     }
+
+    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
+    @GetMapping("/search")
+    @Operation(summary = "Search books by parameters", description = "Search books by parameters")
+    public List<BookResponseDto> search(BookSearchParameters searchParameters) {
+        return bookService.search(searchParameters);
+    }
+
 }
